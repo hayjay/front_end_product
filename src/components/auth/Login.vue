@@ -35,12 +35,12 @@ export default {
             this.submitted = true;
             if (this.formField.email && this.formField.password) {
                 this.$http.post("/login", this.formField).then((response) => {
-                    localStorage.setItem('token', JSON.stringify(response.data['token']))
-                    console.log(response);
-                    console.log(response.data['token']);
-                // this.customer.id = response.data.id;
+                    localStorage.setItem('auth', JSON.stringify(response.data))
+                        if (localStorage.getItem('auth') !== null) {//when authenticated
+                        //redirect to authenticated user's product listing
+                            console.log(response.data.message);
+                        }
                 }).catch(e => {
-                console.log(e);
                 });
             }
         }

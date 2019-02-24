@@ -5,10 +5,10 @@ import { Toasts } from './toasts.js';
 
 let axios = Axios.create({
   baseURL: "http://localhost:9090/api",
-//   timeout: 30000,
+  timeout: 30000,
   headers: {
     "Content-type": "application/json",
-    // "Access-Control-Allow-Origin" : "*"
+    "Access-Control-Allow-Origin" : "*"
   }
 });
 
@@ -17,20 +17,22 @@ axios.interceptors.request.use(
     (config) => {
         //do something before request is sent to the api server
         config.loadingToast = Toasts.$toasted.global.loading('Processing request!');
-        let auth = JSON.parse(localStorage.getItem('token'));
+        let auth = JSON.parse(localStorage.getItem('auth'));
         //set headers to config after receiving response from axios
-        config.headers = { Authorization: `Bearer ${auth}`};
-        console.log(config.headers.Authorization);
-
         if (auth && auth.token) {
-        	//if successfully loged in, set user token as below
+        	//if successfully loged in, update header property and set user token as below so user can make request with the received token
             config.headers.Authorization = `Bearer ${auth.token}`;
+        }else{
+            Toasts.$toasted.error(auth.error, {
+                type: 'error',
+                icon: 'fa-exclamation-circle'
+            });
         }
-
         return config;
     }, 
   //do something when error occured while trying to request something from server
     (error) => {
+        // console.log('sisusis');
         return Promise.reject(error);
     }
 );
