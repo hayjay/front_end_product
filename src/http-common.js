@@ -15,14 +15,17 @@ let axios = Axios.create({
 //request interceptor
 axios.interceptors.request.use(
     (config) => {
+        console.log(config)
         //do something before request is sent to the api server
-        config.loadingToast = Toasts.$toasted.global.loading('Processing request!');
+        config.loadingToast = Toasts.$toasted.global.loading();
         let auth = JSON.parse(localStorage.getItem('auth'));
         //set headers to config after receiving response from axios
         if (auth && auth.token) {
         	//if successfully loged in, update header property and set user token as below so user can make request with the received token
             config.headers.Authorization = `Bearer ${auth.token}`;
         }else{
+            //incorrect login credentials
+            // localStorage.removeItem('auth');
             Toasts.$toasted.error(auth.error, {
                 type: 'error',
                 icon: 'fa-exclamation-circle'

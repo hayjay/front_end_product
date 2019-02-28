@@ -44,7 +44,7 @@ Vue.toasted.register(
 
 Vue.toasted.register(
     'loading',
-    'Loading...', {
+    'Processing request...', {
         type: 'show',
         icon: 'fa-hourglass-half',
         duration: 60000
