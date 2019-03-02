@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import http from "../../http-common";
 
 export default {
   name: "customers-list",
@@ -32,10 +31,10 @@ export default {
   methods: {
     /* eslint-disable no-console */
     retrieveCustomers() {
-      http
+      this.$http
         .get("/products")
         .then(response => {
-          this.customers = response.data; // JSON are parsed automatically.
+          this.customers = response.data.data; // JSON are parsed automatically.
           console.log(response.data);
         })
         .catch(e => {

@@ -34,13 +34,24 @@ export default {
         handleSubmit (e) {
             this.submitted = true;
             if (this.formField.email && this.formField.password) {
+                console.log("hello-1")
                 this.$http.post("/login", this.formField).then((response) => {
+                    console.log(response);
                     localStorage.setItem('auth', JSON.stringify(response.data))
                         if (localStorage.getItem('auth') !== null) {//when authenticated
-                        //redirect to authenticated user's product listing
-                            console.log(response.data.message);
+                            //checks if the user wanted to hit a url before he ws redirected to login
+                            //if so then redirect the user to the intended route he wanted to access before he was bounced back
+                            if (this.$route.params.nextUrl != null) {
+                                this.$router.push(this.$route.params.nextUrl)
+                            } else {
+                                //assumes the user just wants to login to the app without any intended url before
+                                //redirect to authenticated user's product listing
+                                this.$router.push({ name : 'products' });
+                                console.log(response.data.message);
+                            }
                         }
                 }).catch(e => {
+                    console.log(e);
                 });
             }
         }
