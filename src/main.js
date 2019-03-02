@@ -6,9 +6,10 @@ import {http} from './http-common';
 import './toasts';
 
 Vue.use(Vuex)
-
+http.defaults.headers.common["Authorization"] = localStorage.getItem('auth');
 
 Vue.prototype.$http = http;
+
 Vue.config.productionTip = false;
 
 new Vue({

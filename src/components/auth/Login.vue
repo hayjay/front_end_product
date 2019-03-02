@@ -34,7 +34,9 @@ export default {
         handleSubmit (e) {
             this.submitted = true;
             if (this.formField.email && this.formField.password) {
+                console.log("hello-1")
                 this.$http.post("/login", this.formField).then((response) => {
+                    console.log(response);
                     localStorage.setItem('auth', JSON.stringify(response.data))
                         if (localStorage.getItem('auth') !== null) {//when authenticated
                             //checks if the user wanted to hit a url before he ws redirected to login
@@ -49,6 +51,7 @@ export default {
                             }
                         }
                 }).catch(e => {
+                    console.log(e);
                 });
             }
         }
