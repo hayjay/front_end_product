@@ -7,6 +7,8 @@ import SearchCustomers from "./components/SearchCustomers.vue";
 import Customer from "./components/Customer.vue";
 import SingleProduct from "./components/products/EditProduct.vue";
 import AuthLogin from "./components/auth/Login.vue";
+import AuthLogOut from "./components/auth/LogOut.vue";
+
 
 
 //set vuejs to use vue router
@@ -20,6 +22,12 @@ export default new Router({
       name: "login",
       alias: "/login",
       component: AuthLogin,
+    },
+    {
+      path: "/users/logout",
+      name: "logout",
+      alias: "/logout",
+      component: AuthLogOut,
     },
     {
       path: "/all/customers",

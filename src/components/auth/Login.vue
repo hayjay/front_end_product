@@ -33,11 +33,9 @@ export default {
     methods: {
         handleSubmit (e) {
             this.submitted = true;
-            if (this.formField.email && this.formField.password) {
-                console.log("hello-1")
+                if (this.formField.email && this.formField.password) {
                 this.$http.post("/login", this.formField).then((response) => {
-                    console.log(response);
-                    localStorage.setItem('auth', JSON.stringify(response.data))
+                    let auth = localStorage.setItem('auth', JSON.stringify(response.data))
                         if (localStorage.getItem('auth') !== null) {//when authenticated
                             //checks if the user wanted to hit a url before he ws redirected to login
                             //if so then redirect the user to the intended route he wanted to access before he was bounced back
@@ -47,12 +45,16 @@ export default {
                                 //assumes the user just wants to login to the app without any intended url before
                                 //redirect to authenticated user's product listing
                                 this.$router.push({ name : 'products' });
-                                console.log(response.data.message);
                             }
+                        }else{
+                            // this.$toast.$toasted.error('All fields are required.');
                         }
                 }).catch(e => {
                     console.log(e);
                 });
+            }else{
+        
+                this.$toast.$toasted.error('All fields are required.');
             }
         }
     }

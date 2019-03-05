@@ -4,6 +4,7 @@
             <h1>Product Tracker</h1>
         </div>
         <nav>
+            <router-link class="btn btn-warning" to="/users/logout">Logout</router-link>
             <router-link class="btn btn-primary" to="/">Customers</router-link>
             <router-link class="btn btn-primary" to="/products">Products</router-link>
             <router-link class="btn btn-primary" to="/product/add">Add New Products</router-link>

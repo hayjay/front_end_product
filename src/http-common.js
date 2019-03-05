@@ -20,17 +20,16 @@ axios.interceptors.request.use(
         
         let auth = JSON.parse(localStorage.getItem('auth'));
         //set headers to config after receiving response from axios
-        if (auth && auth.token) {
+        if (auth && auth.token !== null) {
         	//if successfully loged in, update header property and set user token as below so user can make request with the received token
             config.headers.Authorization = `Bearer ${auth.token}`;
         }else{
             //incorrect login credentials
             // localStorage.removeItem('auth');
-            // Toasts.$toasted.error(auth.error, {
-            //     type: 'error',
-            //     icon: 'fa-exclamation-circle'
-            // });
-            console.log(auth);
+            Toasts.$toasted.error(auth.error, {
+                type: 'error',
+                icon: 'fa-exclamation-circle'
+            });
         }
         return config;
     }, 
